@@ -1,5 +1,6 @@
 import pygame
 import sys
+from parts import snap_slot
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -10,8 +11,11 @@ dt = 0
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
 rect = pygame.Rect(300, 200, 150, 100)
-snap_rect = pygame.Rect(295, 450, 160, 110)
+snap_rect = snap_slot(screen, 295, 450, 160, 110)
 dragging = False
+
+
+
 
 while running:
     for event in pygame.event.get():
@@ -27,9 +31,7 @@ while running:
 
         elif event.type == pygame.MOUSEBUTTONUP:
             dragging = False
-            if rect.colliderect(snap_rect):
-                rect.x = snap_rect.x + int(snap_rect.width / 2) - int(rect.width / 2)
-                rect.y = snap_rect.y + int(snap_rect.height / 2) - int(rect.height / 2)
+            snap_rect.snap(rect)
 
         elif event.type == pygame.MOUSEMOTION:
             if dragging:
