@@ -25,6 +25,8 @@ while running:
 
     screen.fill("white")
 
+
+    # Drawing Objects
     snap_rect1.draw()
     snap_rect2.draw()
     rect.draw()
